@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>才能回路鑑定</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+        
+        section {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #f39c12;
+            padding-bottom: 15px;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+        }
+        
+        h4 {
+            color: #2c3e50;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        strong {
+            color: #f39c12;
+            font-weight: bold;
+        }
+        
+        .concern-list, .benefit-list, .change-list, .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .concern-list li, .benefit-list li, .change-list li, .feature-list li {
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #f39c12;
+            border-radius: 5px;
+        }
+        
+        .process-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .process-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ecf0f1 100%);
+            border: 2px solid #f39c12;
+            border-radius: 10px;
+            padding: 25px;
+        }
+        
+        .process-card h4 {
+            color: #2c3e50;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .session-number {
+            background-color: #f39c12;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .faq-item {
+            background: #f8f9fa;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #27ae60;
+        }
+        
+        .faq-item strong {
+            display: block;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .target-list {
+            background: #e8f5e9;
+            border-left: 4px solid #27ae60;
+            padding: 25px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .mismatch-list {
+            background: #ffe8e8;
+            border-left: 4px solid #e74c3c;
+            padding: 25px;
+            border-radius: 5px;
+        }
+        
+        .target-list h4, .mismatch-list h4 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .target-list ul, .mismatch-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .target-list li, .mismatch-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .target-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .mismatch-list li:before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .bootcamp-link {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 25px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .bootcamp-link h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .bootcamp-link p {
+            color: #555;
+            margin-bottom: 10px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(243, 156, 18, 0.3);
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            border-radius: 10px;
+        }
+        
+        .cta-section h2 {
+            color: white;
+            border-bottom: 3px solid #f39c12;
+        }
+        
+        .cta-section p {
+            color: white;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+        }
+        
+        .section-divider {
+            text-align: center;
+            color: #bdc3c7;
+            margin: 30px 0;
+            font-size: 1.2rem;
+        }
+        
+        .intro-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #f39c12;
+            padding: 30px;
+            border-radius: 5px;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+        
+        .intro-box p {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .intro-box strong {
+            color: #f39c12;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .process-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== ヒーロー ===== -->
+    <header>
+        <h1>✨ 才能回路鑑定</h1>
+        <p>自分のチャネリング方法を特定する</p>
+        <p style="font-size: 1rem; margin-top: 20px; color: white;">あなたのチャネリングは、どの「回路」を使っているのか？</p>
+        <p style="font-size: 1rem; color: white;">それを知ると、迷わず、精度高く、自信を持ってチャネリングできる。</p>
+    </header>
+
+    <!-- ===== 才能回路鑑定とは ===== -->
+    <section>
+        <h2>「才能回路鑑定」とは</h2>
+        <div class="intro-box">
+            <p>あなたが持つ<strong>エネルギーの特性</strong>をチャネリングで読み取り、</p>
+            <p><strong>あなた専用のチャネリング方法</strong>を特定する鑑定です。</p>
+            <p style="margin-top: 20px;">同じスピリチュアル能力を持つ人でも、チャネリング方法は人それぞれ異なります。</p>
+            <p>他の人のやり方を真似しても、あなたには合わないかもしれません。</p>
+            <p style="margin-top: 20px;"><strong>あなた本来のチャネリング方法を知ること。</strong></p>
+            <p>それが、迷いなく、精度高く、自信を持ってチャネリングする第一歩です。</p>
+        </div>
+    </section>
+
+    <!-- ===== こんなお悩みはありませんか ===== -->
+    <section>
+        <h2>こんなお悩みはありませんか？</h2>
+        <ul class="concern-list">
+            <li>チャネリングができるが、自分のやり方がわからない</li>
+            <li>他の人と同じやり方でいいのか、常に不安</li>
+            <li>自分のチャネリング方法に自信がない</li>
+            <li>チャネリングの精度を上げたい</li>
+            <li>迷いながらチャネリングしている状態から抜け出したい</li>
+        </ul>
+    </section>
+
+    <!-- ===== 鑑定で得られること ===== -->
+    <section>
+        <h2>鑑定で得られること</h2>
+        <ul class="benefit-list">
+            <li>✅ <strong>自分のチャネリング方法が明確になる</strong> – 「自分はこの方法が合っている」と確定</li>
+            <li>✅ <strong>迷いが消える</strong> – 他者と比較せず、自分のやり方に集中できる</li>
+            <li>✅ <strong>精度が向上する</strong> – 本来の方法でチャネリングすると、情報受け取りの質が上がる</li>
+            <li>✅ <strong>自信が生まれる</strong> – 「私のチャネリングは正しい」という確信を持てる</li>
+            <li>✅ <strong>学習の羅針盤になる</strong> – これからの能力開発の指針が決まる</li>
+        </ul>
+    </section>
+
+    <!-- ===== こんな変化が期待できます ===== -->
+    <section>
+        <h2>セッション後、こんな変化が期待できます</h2>
+        <ul class="change-list">
+            <li><strong>チャネリングの迷いが消える</strong><br>「これが自分のやり方だ」と確定すると、セッション中に感じる重みが変わります。迷いながらチャネリングしていた時より、情報がクリアに降りてくるようになります。</li>
+            <li><strong>精度が劇的に上がる</strong><br>自分の方法でチャネリングすると、受け取る情報の質が変わります。「あ、これは正しい」という手応えを感じられるようになります。</li>
+            <li><strong>他者と比較しなくなる</strong><br>「私のやり方はこれ」と確定することで、他の人のやり方を見ても揺らがなくなります。自分のペースで能力開発を進められるようになります。</li>
+            <li><strong>セッション後の学習が効率化する</strong><br>鑑定で「あなたが強化すべきポイント」が明確になるので、その後の講座やトレーニングの効果が段違いに上がります。</li>
+        </ul>
+    </section>
+
+    <div class="section-divider">━━━━━━━━━━━━━━━━━━━━━━━━</div>
+
+    <!-- ===== 鑑定の流れ ===== -->
+    <section>
+        <h2>鑑定の流れ</h2>
+        <p style="text-align: center; margin-bottom: 30px; font-size: 1.1rem;">全 2 回セッション　計 60 分　¥38,500</p>
+        
+        <div class="process-container">
+            <div class="process-card">
+                <div class="session-number">セッション 1</div>
+                <h4>才能回路特定セッション</h4>
+                <p style="font-size: 0.95rem;"><strong>30 分</strong></p>
+                <hr style="margin: 15px 0; border: none; border-top: 1px solid #ddd;">
+                <p style="font-size: 0.95rem;">あなたの生年月日とエネルギーをチャネリングで読み取り、</p>
+                <p style="font-size: 0.95rem;">あなたが持つ「才能回路」を特定します。</p>
+                <p style="font-size: 0.95rem; margin-top: 15px;">どのような特性を持つエネルギーで、どのようなチャネリング方法が最適なのか、詳しく説明します。</p>
+            </div>
+            
+            <div class="process-card">
+                <div class="session-number">セッション 2</div>
+                <h4>実践ガイダンスセッション</h4>
+                <p style="font-size: 0.95rem;"><strong>30 分（1 〜 2 週間後）</strong></p>
+                <hr style="margin: 15px 0; border: none; border-top: 1px solid #ddd;">
+                <p style="font-size: 0.95rem;">セッション 1 後、あなたが実践した中での質問や、さらに深掘りしたい内容をお伝えください。</p>
+                <p style="font-size: 0.95rem;">あなた専用のチャネリング方法を、より精度高く、実践的にガイドします。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== よくある質問 ===== -->
+    <section>
+        <h2>よくある質問</h2>
+        <div class="faq-item">
+            <strong>Q. 受講前提条件は？</strong>
+            <p>A. 覚醒ワーク、または覚醒ワーク（φアマテル）を受講済みで、チャネリングができる方が対象です。</p>
+        </div>
+        <div class="faq-item">
+            <strong>Q. 生年月日はなぜ必要ですか？</strong>
+            <p>A. エネルギーの特性を読み取るために、生年月日が必要になります。より正確な回路特定ができます。</p>
+        </div>
+        <div class="faq-item">
+            <strong>Q. 2 回のセッション間隔はどのくらい？</strong>
+            <p>A. 1 回目から 2 回目までは 1 〜 2 週間程度が目安です。その間、あなた専用の方法を実践してください。</p>
+        </div>
+        <div class="faq-item">
+            <strong>Q. セッションはオンラインですか？</strong>
+            <p>A. はい、個別オンライン（Zoom）で実施します。</p>
+        </div>
+        <div class="faq-item">
+            <strong>Q. 能力覚醒ブートキャンプとどう違うのですか？</strong>
+            <p>A. 才能回路鑑定は「あなたのチャネリング方法を特定する」、ブートキャンプは「その方法を実行できる状態にする」です。組み合わせることで効果が倍増します。</p>
+        </div>
+        <div class="faq-item">
+            <strong>Q. 鑑定後、実際に効果を感じられますか？</strong>
+            <p>A. セッション後、あなた専用の方法でチャネリングを実践すると、迷いが減り、精度が上がることを実感する方が多いです。</p>
+        </div>
+    </section>
+
+    <div class="section-divider">━━━━━━━━━━━━━━━━━━━━━━━━</div>
+
+    <!-- ===== こんな方に向いています ===== -->
+    <section>
+        <div class="target-list">
+            <h4>こんな方に向いています</h4>
+            <ul>
+                <li>覚醒ワークを受講済みで、チャネリング能力がある方</li>
+                <li>自分のチャネリング方法に迷いや不安がある方</li>
+                <li>チャネリングの精度を上げたい方</li>
+                <li>他者と比較せず、自分のやり方に自信を持ちたい方</li>
+                <li>これからの能力開発の指針を得たい方</li>
+            </ul>
+        </div>
+        <div class="mismatch-list">
+            <h4>申し訳ないが、ご縁がない場合</h4>
+            <ul>
+                <li>チャネリング能力がまだ発動していない方</li>
+                <li>「とりあえず試してみたい」という軽い気持ちの方</li>
+                <li>自分のエネルギー特性を深く知りたくない方</li>
+                <li>生年月日を提供したくない方</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ===== ブートキャンプとの組み合わせ ===== -->
+    <section>
+        <div class="bootcamp-link">
+            <h3>✨ さらに効果を高めたい方へ</h3>
+            <p><strong>才能回路鑑定 → 能力覚醒ブートキャンプ</strong> の順で受講すると、効果が倍増します。</p>
+            <p style="margin-top: 15px;">才能回路鑑定で「あなたのチャネリング方法」が確定した後、能力覚醒ブートキャンプで「その方法を実行できる状態」に進化させることができます。</p>
+            <p style="margin-top: 15px; font-size: 0.95rem; color: #999;">詳しくは、能力覚醒ブートキャンプのページをご覧ください。</p>
+        </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="cta-section">
+        <h2>迷いなく、精度高く、自信を持ってチャネリングするために。</h2>
+        <p style="color: white; margin-bottom: 30px; margin-top: 20px;">申し込みフォームからセッション日時（第3希望まで）をご選択ください。</p>
+        <a href="https://lit.link/Kakuei_reina" class="cta-button">才能回路鑑定に申し込む</a>
+    </section>
+
+    <!-- ===== フッター ===== -->
+    <footer>
+        <p>&copy; 2026 才能回路鑑定 All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
